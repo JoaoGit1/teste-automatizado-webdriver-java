@@ -1,10 +1,9 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import support.Utils;
-
-import static org.junit.Assert.assertEquals;
 
 public class Homepage extends Utils {
     WebDriver driver;
@@ -59,6 +58,7 @@ public class Homepage extends Utils {
         driver.findElement(By.id("twotabsearchtextbox")).sendKeys("smartphone");
         System.out.println("fez a busca ");
     }
+
     public void clicoBotaoPesquisar() {
         driver.findElement(By.id("nav-search-submit-button")).click();
 
@@ -66,14 +66,18 @@ public class Homepage extends Utils {
     }
 
     public void verificoOproduto() {
-
-      String texto_produto = driver.findElement(By.className(" Celulares e Smartphones ")).getText();
-
-        assertEquals("Celulares e Smartphones", texto_produto);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String texto_produto = driver.findElement(By.cssSelector("#search > span > div > h1 > div > div.sg-col-14-of-20.sg-col-18-of-24.sg-col.s-breadcrumb.sg-col-10-of-16.sg-col-6-of-12 > div > div > span.a-color-state.a-text-bold")).getText();
+        Assert.assertEquals("verificou o produto", "smartphone", texto_produto);
         System.out.println("verificou produto");
     }
 
 }
+
 
 
 
